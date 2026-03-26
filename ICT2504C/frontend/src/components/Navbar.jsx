@@ -46,6 +46,10 @@ function Navbar() {
           <NavLink to="/manage-users">Manage Users</NavLink>
         )}
 
+        {role === "admin" && (
+          <NavLink to="/audit-trail">Audit Trail</NavLink>
+        )}
+
         <button onClick={handleLogout}>Logout</button>
       </div>
     </nav>

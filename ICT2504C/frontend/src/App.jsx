@@ -14,6 +14,7 @@ import ManageHolidays from "./pages/ManageHolidays";
 import AccessDenied from "./pages/AccessDenied";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import AuditTrail from "./pages/AuditTrail";
 
 import "./App.css";
 
@@ -84,12 +85,20 @@ function AppLayout() {
           }
         />
 
-        {/* New route for public holiday management */}
         <Route
           path="/manage-holidays"
           element={
             <RoleRoute allowedRoles={["admin"]}>
               <ManageHolidays />
+            </RoleRoute>
+          }
+        />
+        
+        <Route
+          path="/audit-trail"
+          element={
+            <RoleRoute allowedRoles={["admin"]}>
+              <AuditTrail />
             </RoleRoute>
           }
         />

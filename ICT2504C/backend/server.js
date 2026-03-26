@@ -3,8 +3,11 @@ const cors = require("cors");
 require("dotenv").config();
 
 const { sequelize } = require("./models");
+
 const authRoutes = require("./routes/authRoutes");
 const leaveRoutes = require("./routes/leaveRoutes");
+const auditRoutes = require("./routes/auditRoutes");
+
 const syncSingaporePublicHolidays = require("./utils/syncPublicHolidays");
 
 const app = express();
@@ -23,6 +26,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/leave", leaveRoutes);
+app.use("/api/audit", auditRoutes);
 
 sequelize
   .sync({ alter: true })
