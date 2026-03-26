@@ -27,7 +27,7 @@ Responsibilities:
 
 ---
 
-## Kai Ling – Leave Management System
+## Kai Lin – Leave Management System
 
 Responsibilities:
 
