@@ -56,6 +56,7 @@ Install the following:
 -   MySQL Server
 -   MySQL Workbench (optional)
 -   Visual Studio Code
+-   Postman
 
 ------------------------------------------------------------------------
 
