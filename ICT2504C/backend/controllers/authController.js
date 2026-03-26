@@ -361,7 +361,18 @@ exports.forgotPassword = async (req, res) => {
       expiresAt: new Date(Date.now() + expiresMinutes * 60 * 1000)
     });
 
-    await logAudit(user.id, "FORGOT_PASSWORD_REQUEST", null, user.role);
+    // Audit: track who requested the password reset
+    await logAudit(
+      user.id,
+      "FORGOT_PASSWORD_REQUEST",
+      {
+        requestedBy: user.email,
+        name: user.name,
+        role: user.role,
+        tokenExpiresInMinutes: expiresMinutes
+      },
+      user.role
+    );
 
     return res.json({
       message: "Password reset token generated",
@@ -395,6 +406,8 @@ exports.resetPassword = async (req, res) => {
 
     const user = await User.findByPk(resetRecord.userId);
 
+    const wasLocked = user.isLocked;
+
     user.password = await bcrypt.hash(newPassword, 10);
     user.mustChangePassword = false;
     user.failedLoginAttempts = 0;
@@ -404,7 +417,19 @@ exports.resetPassword = async (req, res) => {
     resetRecord.used = true;
     await resetRecord.save();
 
-    await logAudit(user.id, "RESET_PASSWORD", null, user.role);
+    // Audit: track who reset the password and whether account was unlocked as a result
+    await logAudit(
+      user.id,
+      "RESET_PASSWORD",
+      {
+        resetBy: user.email,
+        name: user.name,
+        role: user.role,
+        accountWasLocked: wasLocked,
+        accountUnlockedByReset: wasLocked
+      },
+      user.role
+    );
 
     return res.json({ message: "Password reset successful" });
   } catch (error) {
@@ -489,7 +514,7 @@ exports.unlockUser = async (req, res) => {
     await logAudit(
       req.user.id,
       "UNLOCK_USER",
-      { unlockedUserId: user.id },
+      { unlockedUserId: user.id, unlockedUserEmail: user.email },
       req.user.role
     );
 
