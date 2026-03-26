@@ -9,49 +9,6 @@ through authentication, role-based access control, and audit logging.
 
 ------------------------------------------------------------------------
 
-# System Architecture
-
-Frontend (React + Vite)\
-↓\
-Backend API (Node.js + Express)\
-↓\
-Database (MySQL)
-
-The system follows a **three‑tier architecture** separating the UI,
-business logic, and database layer.
-
-------------------------------------------------------------------------
-
-# Technology Stack
-
-## Frontend
-
--   React (Vite)
--   React Router
--   Axios
-
-## Backend
-
--   Node.js
--   Express.js
--   Sequelize ORM
-
-## Database
-
--   MySQL
-
-## Security Features
-
--   JWT Authentication
--   Refresh Token Rotation
--   Brute‑Force Login Protection
--   Role‑Based Access Control
--   Account Lockout and Admin Unlock
--   Password Reset with Expiring Tokens
--   Audit Logging
-
-------------------------------------------------------------------------
-
 # System Roles
 
   Role       Description
@@ -184,44 +141,3 @@ Body:
 { "name": "Admin", "email": "admin@test.com", "password": "123456" }
 
 You can now login with the admin account.
-
-------------------------------------------------------------------------
-
-# Demonstration Flow
-
-1.  Admin logs in
-2.  Admin creates employee and manager accounts
-3.  Employee logs in and applies for leave
-4.  Manager reviews and approves leave
-5.  Admin manages users and unlocks locked accounts
-
-------------------------------------------------------------------------
-
-# Security Features Demonstration
-
-The system includes:
-
--   Login attempt lockout after repeated failures
--   Admin unlock functionality
--   Role‑based route protection
--   JWT authentication with refresh token rotation
--   Audit logging of sensitive actions
-
-------------------------------------------------------------------------
-
-# Project Structure
-
-project-root
-
-backend\
-controllers / models / routes / middleware / server.js
-
-frontend\
-src / components / pages / api
-
-README.md\
-TEAMWORK.md
-
-------------------------------------------------------------------------
-
-Developed for **Full Stack Secured Development**.
